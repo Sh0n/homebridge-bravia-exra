@@ -77,6 +77,8 @@ function SonyTV (platform, config, accessory = null) {
   this.useApps = (isNull(config.applications)) ? false : (config.applications instanceof Array == true ? config.applications.length > 0 : config.applications);
   this.applications = (isNull(config.applications) || (config.applications instanceof Array != true)) ? [] : config.applications;
   this.cookiepath = STORAGE_PATH + '/sonycookie_' + this.name;
+  this.onURL = config.onURL || null;
+  this.offURL = config.offURL || null;
 
   this.cookie = null;
   this.pwd = config.pwd || null;
@@ -872,19 +874,27 @@ SonyTV.prototype.setPowerState = function (state, callback) {
     that.getPowerState(callback);
   };
   if (state) {
-    if (!isNull(this.mac)) {
-      wol.wake(this.mac, { address: this.woladdress }, onWol);
+    if (isNull(this.onURL)){
+      if (!isNull(this.mac)) {
+        wol.wake(this.mac, { address: this.woladdress }, onWol);
+      } else {
+        var post_data = '{"id":2,"method":"setPowerStatus","version":"1.0","params":[{"status":true}]}';
+        that.makeHttpRequest(onError, onSucces, '/sony/system/', post_data, false);
+      }
     } else {
-      var post_data = '{"id":2,"method":"setPowerStatus","version":"1.0","params":[{"status":true}]}';
-      that.makeHttpRequest(onError, onSucces, '/sony/system/', post_data, false);
+      this.makeHttpRequest(onError, onSucces, new URL(this.onURL), null, false, true);
     }
   } else {
-    if (!isNull(this.mac)) {
-      var post_data = this.createIRCC('AAAAAQAAAAEAAAAvAw==');
-      this.makeHttpRequest(onError, onSucces, '', post_data, false);
+    if (isNull(this.offURL)){
+      if (!isNull(this.mac)) {
+        var post_data = this.createIRCC('AAAAAQAAAAEAAAAvAw==');
+        this.makeHttpRequest(onError, onSucces, '', post_data, false);
+      } else {
+        var post_data = '{"id":2,"method":"setPowerStatus","version":"1.0","params":[{"status":false}]}';
+        that.makeHttpRequest(onError, onSucces, '/sony/system/', post_data, false);
+      }
     } else {
-      var post_data = '{"id":2,"method":"setPowerStatus","version":"1.0","params":[{"status":false}]}';
-      that.makeHttpRequest(onError, onSucces, '/sony/system/', post_data, false);
+      this.makeHttpRequest(onError, onSucces, new URL(this.offURL), null, false, true);
     }
   }
 };
@@ -898,7 +908,7 @@ SonyTV.prototype.updatePowerState = function (state) {
 };
 
 // make http request to TV
-SonyTV.prototype.makeHttpRequest = function (errcallback, resultcallback, url, post_data, canTurnTvOn) {
+SonyTV.prototype.makeHttpRequest = function (errcallback, resultcallback, url, post_data, canTurnTvOn, directURL = false) {
   var that = this;
   var data = '';
   if (isNull(canTurnTvOn)) { canTurnTvOn = false; }
@@ -910,7 +920,7 @@ SonyTV.prototype.makeHttpRequest = function (errcallback, resultcallback, url, p
     }, timeout);
     return;
   }
-  var post_options = that.getPostOptions(url);
+  var post_options = directURL ? url : that.getPostOptions(url);
   var post_req = http.request(post_options, function (res) {
     that.setCookie(res.headers);
     res.setEncoding('utf8');
