@@ -1,6 +1,6 @@
 {
   "name": "homebridge-bravia-extra",
-  "version": "0.1",
+  "version": "1.0.1",
   "description": "Homebridge plugin for Sony Bravia TVs (AndroidTV based ones and possibly others) with extra on/off command based on direct http url",
   "main": "index.js",
   "scripts": {
