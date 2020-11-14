@@ -1,4 +1,4 @@
-# homebridge-bravia-extra
+# homebridge-bravia-extra [![NPM Version](https://img.shields.io/npm/v/homebridge-bravia-extra.svg)](https://www.npmjs.com/package/homebridge-bravia-extra)
 
 HomeBridge plugin for Sony Bravia TVs (AndroidTV based ones and possibly others).
 This extra version of original [Normen's homebridge-bravia plugin](https://github.com/normen/homebridge-bravia) just add two news commands to turn ON/OFF TV with direct URL, not with default commands.
