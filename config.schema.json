@@ -2,7 +2,7 @@
   "pluginAlias": "BraviaPlatform",
   "pluginType": "platform",
   "headerDisplay": "Go to [http://${{HOSTNAME}}:8999](http://${{HOSTNAME}}:8999) to enter the PIN when your TV displays it",
-  "footerDisplay": "For documentation please see https://github.com/normen/homebridge-bravia",
+  "footerDisplay": "For documentation please see https://github.com/sh0n/homebridge-bravia-extra",
   "schema": {
     "tvs": {
       "title": "Registered TVs",
@@ -128,6 +128,8 @@
         "tvs[].soundoutput",
         "tvs[].port",
         "tvs[].mac",
+        "tvs[].onURL",
+        "tvs[].offURL",
         "tvs[].serverPort",
         "tvs[].externalaccessory",
         "tvs[].debug",
