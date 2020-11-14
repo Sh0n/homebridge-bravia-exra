@@ -1,6 +1,11 @@
-# homebridge-bravia [![NPM Version](https://img.shields.io/npm/v/homebridge-bravia.svg)](https://www.npmjs.com/package/homebridge-bravia) [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins) 
+# homebridge-bravia-extra
 
 HomeBridge plugin for Sony Bravia TVs (AndroidTV based ones and possibly others).
+This extra version of original [Normen's homebridge-bravia plugin](https://github.com/normen/homebridge-bravia) just add two news commands to turn ON/OFF TV with direct URL, not with default commands.
+
+For example, in my case, i use Apple TV ON command to turn on both TV and Apple TV in the same time with only one command :)
+
+Thanks to Normen for his great work !
 
 ## Introduction
 Supports the following functions
@@ -88,6 +93,8 @@ Optional options (all inside one TV entry):
   - `serverPort` sets a different port than `8999` for the web server that allows entering the PIN number from the TV
   - `updaterate` interval in milliseconds for TV status updates (on/off etc), default `5000`
   - `channelupdaterate` interval in milliseconds for updates of the channel/input list, default `30000`
+  - `onURL` direct URL to turn ON TV, default null
+  - `OffURL` direct URL to turn OFF TV, default null
 
 ## Usage
 ### Basic functions
