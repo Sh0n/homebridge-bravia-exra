@@ -43,6 +43,18 @@
             "type": "string",
             "required": false
           },
+          "onURL": {
+            "title": "ON direct URL",
+            "description": "URL to turn ON TV, if you don't want to use default command",
+            "type": "string",
+            "required": false
+          },
+          "offURL": {
+            "title": "OFF direct URL",
+            "description": "URL to turn OFF TV, if you don't want to use default command",
+            "type": "string",
+            "required": false
+          },
           "externalaccessory": {
             "title": "External Accessory",
             "description": "Workaround for multiple TVs and remote app, registers this TV as an external accessory",
